@@ -1,0 +1,109 @@
+<section class="container m-auto p-1">
+  <h2 class="text-center text-1xl p-3 md:text-3xl font-light">
+    REGISTRAR NUEVO SUPERHÉROE
+  </h2>
+  <form
+    action="/api/heroes/agregar"
+    method="post"
+    class="bg-black/75 rounded-md p-3 grid gap-3 max-w-[600px] m-auto"
+    id="agregarSuperheroeForm"
+  >
+    <div class="grid sm:flex gap-3 flex-1 [&>*]:flex-1">
+      <label for="nombreSuperHeroe" class="text-white">Nombre del superhéroe</label>
+      <input
+        class="p-1 rounded-md"
+        type="text"
+        name="nombreSuperHeroe"
+        id="nombreSuperHeroe"
+        minlength="3"
+        maxlength="60"
+        required
+      />
+    </div>
+    <div class="grid sm:flex gap-3 flex-1 [&>*]:flex-1">
+      <label for="nombreReal" class="text-white">Nombre real</label>
+      <input
+        class="p-1 rounded-md"
+        type="text"
+        name="nombreReal"
+        id="nombreReal"
+        minlength="3"
+        maxlength="60"
+        required
+      />
+    </div>
+    <div class="grid sm:flex gap-3 flex-1 [&>*]:flex-1">
+      <label for="edad" class="text-white">Edad</label>
+      <input
+        class="p-1 rounded-md"
+        type="number"
+        name="edad"
+        id="edad"
+        min="0"
+        required
+      />
+    </div>
+    <div class="grid sm:flex gap-3 flex-1 [&>*]:flex-1">
+      <label for="planetaOrigen" class="text-white">Planeta de origen (Opcional)</label>
+      <input class="p-1 rounded-md" type="text" name="planetaOrigen" id="planetaOrigen" />
+    </div>
+    <div class="grid sm:flex gap-3 flex-1 [&>*]:flex-1">
+      <label for="debilidad" class="text-white">Debilidad</label>
+      <input
+        class="p-1 rounded-md"
+        type="text"
+        name="debilidad"
+        id="debilidad"
+        required
+      />
+    </div>
+    <div class="grid sm:flex gap-3 flex-1 [&>*]:flex-1">
+      <label for="creador" class="text-white">Creador</label>
+      <input class="p-1 rounded-md" type="text" name="creador" id="creador" required />
+    </div>
+
+    <!-- Lista de poderes -->
+    <fieldset class="grid gap-3 border border-solid border-gray-300 p-3 rounded-md">
+      <legend class="text-white p-3">Poderes</legend>
+      <div id="poderesContainer" class="grid gap-2">
+        <input
+          type="text"
+          class="p-1 rounded-md"
+          name="poderes[]"
+          placeholder="Ingrese un poder"
+          required
+        />
+      </div>
+      <button type="button" class="text-white" onclick="agregarPoder()">
+        Añadir otro poder
+      </button>
+    </fieldset>
+
+    <!-- Lista de enemigos -->
+    <fieldset class="grid gap-3 border border-solid border-gray-300 p-3 rounded-md">
+      <legend class="text-white p-3">Enemigos</legend>
+      <div id="enemigosContainer" class="grid gap-2"></div>
+      <button type="button" class="text-white" onclick="agregarEnemigo()">
+        Añadir enemigo
+      </button>
+    </fieldset>
+
+    <!-- Lista de aliados -->
+    <fieldset class="grid gap-3 border border-solid border-gray-300 p-3 rounded-md">
+      <legend class="text-white p-3">Aliados</legend>
+      <div id="aliadosContainer" class="grid gap-2"></div>
+      <button type="button" class="text-white" onclick="agregarAliado()">
+        Añadir aliado
+      </button>
+    </fieldset>
+
+    <!-- Botonoes -->
+    <div class="flex gap-3 justify-end">
+      <button type="submit" class="bg-white p-2 rounded-md font-thin w-28">
+        Aceptar
+      </button>
+      <button type="reset" class="bg-white p-2 rounded-md font-thin w-28">Limpiar</button>
+    </div>
+  </form>
+</section>
+<script src="/scripts/addSuperhero.js"></script>
