@@ -28,7 +28,7 @@ export async function obtenerSuperheroePorIdController(req, res, next) {
 export async function obtenerTodosLosSuperheroesController(req, res, next) {
   try {
     const superheroes = await obtenerTodosLosSuperheroes();
-    return res.render("dashboard", { superheroes });
+    return res.render("dashboard", { section: "Dashboard", superheroes });
   } catch (error) {
     return next(error);
   }
@@ -55,7 +55,7 @@ export async function obtenerSuperheroesMayoresDe30Controller(req, res, next) {
 
 export async function mostrarAddSuperheroController(req, res, next) {
   try {
-    return await res.render("addSuperhero");
+    return await res.render("addSuperhero", { section: "Agregar" });
   } catch (error) {
     next(error);
   }
@@ -66,7 +66,6 @@ export async function agregarNuevoSuperheroeController(req, res, next) {
     const superHeroData = req.body;
     const newSuperHero = await agregarSuperHeroe(superHeroData);
     return res.status(201).send(renderizarSuperheroe(newSuperHero));
-    // res.redirect('/api/heroes');
   } catch (error) {
     return next(error);
   }
@@ -77,7 +76,7 @@ export async function mostrarEditSuperheroController(req, res, next) {
     const { id } = req.params;
     const superheroe = await obtenerSuperheroePorId(id);
     return superheroe
-      ? await res.render("editSuperhero", { superheroe })
+      ? await res.render("editSuperhero", { superheroe, section: "Editar" })
       : res.status(404).send({ mensaje: "Superhéroe no encontrado" });
   } catch (error) {
     next(error);

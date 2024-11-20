@@ -1,125 +1,132 @@
-<h2 class="text-center text-1xl p-3 md:text-3xl font-light">EDITAR SUPERHÉROE</h2>
-<section class="container grid grid-cols-1 m-auto p-1 lg:grid-cols-2 max-w-[1200px]">
-  <div
-    class="grid gap-1 border border-black/90 rounded-md p-3 w-full h-full content-start text-center"
-  >
-    <h4><b>Nombre de superhéroe:</b> <%= superheroe.nombreSuperHeroe %></h4>
-    <h4><b>ID:</b> <span id="superheroeId"><%= superheroe._id %></span></h4>
-    <h4><b>Nombre real:</b> <%= superheroe.nombreReal %></h4>
-    <h4><b>Edad:</b> <%= superheroe.edad %></h4>
-    <h4><b>Planeta de origen:</b> <%= superheroe.planetaOrigen %></h4>
-    <h4><b>Debilidad:</b> <%= superheroe.debilidad %></h4>
-    <div>
-      <h4 class="font-bold">Poderes:</h4>
-      <ul class="m-0 p-0">
-        <% superheroe.poderes.forEach(poder =>{ %>
-        <li><%= poder %></li>
-        <% }); %>
-      </ul>
-    </div>
-    <hr />
-    <div>
-      <h4 class="font-bold">Aliados:</h4>
-      <ul>
-        <% superheroe.aliados.forEach(aliado =>{ %>
-        <li><%= aliado %></li>
-        <% }); %>
-      </ul>
-    </div>
-    <hr />
-    <div>
-      <h4 class="font-bold">Enemigos:</h4>
-      <ul>
-        <% superheroe.enemigos.forEach(enemigo =>{ %>
-        <li><%= enemigo %></li>
-        <% }); %>
-      </ul>
-    </div>
-    <hr />
-    <h4><b>Creador:</b> <%= superheroe.creador ?? "Desconocido" %></h4>
-  </div>
-
-  <form
-    method="post"
-    class="bg-black/75 rounded-md p-3 grid gap-3 w-full h-full"
-    id="editarSuperheroeForm"
-  >
-    <div class="grid sm:flex gap-3 flex-1 [&>*]:flex-1">
-      <label for="nombreSuperHeroe" class="text-white">Nombre del superhéroe</label>
-      <input
-        class="p-1 rounded-md"
-        type="text"
-        name="nombreSuperHeroe"
-        id="nombreSuperHeroe"
-        minlength="3"
-        maxlength="60"
-      />
-    </div>
-    <div class="grid sm:flex gap-3 flex-1 [&>*]:flex-1">
-      <label for="nombreReal" class="text-white">Nombre real</label>
-      <input
-        class="p-1 rounded-md"
-        type="text"
-        name="nombreReal"
-        id="nombreReal"
-        minlength="3"
-        maxlength="60"
-      />
-    </div>
-    <div class="grid sm:flex gap-3 flex-1 [&>*]:flex-1">
-      <label for="edad" class="text-white">Edad</label>
-      <input class="p-1 rounded-md" type="number" name="edad" id="edad" min="0" />
-    </div>
-    <div class="grid sm:flex gap-3 flex-1 [&>*]:flex-1">
-      <label for="planetaOrigen" class="text-white">Planeta de origen (Opcional)</label>
-      <input class="p-1 rounded-md" type="text" name="planetaOrigen" id="planetaOrigen" />
-    </div>
-    <div class="grid sm:flex gap-3 flex-1 [&>*]:flex-1">
-      <label for="debilidad" class="text-white">Debilidad</label>
-      <input class="p-1 rounded-md" type="text" name="debilidad" id="debilidad" />
-    </div>
-    <div class="grid sm:flex gap-3 flex-1 [&>*]:flex-1">
-      <label for="creador" class="text-white">Creador</label>
-      <input class="p-1 rounded-md" type="text" name="creador" id="creador" />
-    </div>
-
-    <fieldset class="grid gap-3 border border-solid border-gray-300 p-3 rounded-md">
-      <legend class="text-white p-3">Poderes</legend>
-      <div id="poderesContainer" class="grid gap-2">
-        <input
-          type="text"
-          class="p-1 rounded-md"
-          name="poderes[]"
-          placeholder="Ingrese un poder"
-        />
+<h1 class="text-center p-3 font-light">EDITAR SUPERHÉROE</h1>
+<hr />
+<section class="container m-auto">
+  <h2 class="text-center font-light p-3">INGRESAR NUEVOS DATOS DEL SUPERHÉROE</h2>
+  <div class="grid grid-cols-1 m-auto max-w-6xl lg:grid-cols-2">
+    <div
+      class="grid content-start gap-1 border border-black/90 p-3 size-full text-center rounded-l-md"
+    >
+      <h4><b>Nombre de superhéroe:</b> <%= superheroe.nombreSuperHeroe %></h4>
+      <h4><b>ID:</b> <span id="superheroeId"><%= superheroe._id %></span></h4>
+      <h4><b>Nombre real:</b> <%= superheroe.nombreReal %></h4>
+      <h4><b>Edad:</b> <%= superheroe.edad %></h4>
+      <h4><b>Planeta de origen:</b> <%= superheroe.planetaOrigen %></h4>
+      <h4><b>Debilidad:</b> <%= superheroe.debilidad %></h4>
+      <div>
+        <h4 class="font-bold">Poderes:</h4>
+        <ul class="m-0 p-0">
+          <% superheroe.poderes.forEach(poder =>{ %>
+          <li><%= poder %></li>
+          <% }); %>
+        </ul>
       </div>
-      <button type="button" class="text-white" onclick="agregarPoder()">
-        Añadir otro poder
-      </button>
-    </fieldset>
-
-    <fieldset class="grid gap-3 border border-solid border-gray-300 p-3 rounded-md">
-      <legend class="text-white p-3">Enemigos</legend>
-      <div id="enemigosContainer" class="grid gap-2"></div>
-      <button type="button" class="text-white" onclick="agregarEnemigo()">
-        Añadir enemigo
-      </button>
-    </fieldset>
-
-    <fieldset class="grid gap-3 border border-solid border-gray-300 p-3 rounded-md">
-      <legend class="text-white p-3">Aliados</legend>
-      <div id="aliadosContainer" class="grid gap-2"></div>
-      <button type="button" class="text-white" onclick="agregarAliado()">
-        Añadir aliado
-      </button>
-    </fieldset>
-
-    <div class="flex gap-3 justify-end">
-      <button type="submit" class="bg-white p-2 rounded-md font-thin w-28">
-        Aceptar
-      </button>
-      <button type="reset" class="bg-white p-2 rounded-md font-thin w-28">Limpiar</button>
+      <hr />
+      <div>
+        <h4 class="font-bold">Aliados:</h4>
+        <ul>
+          <% superheroe.aliados.forEach(aliado =>{ %>
+          <li><%= aliado %></li>
+          <% }); %>
+        </ul>
+      </div>
+      <hr />
+      <div>
+        <h4 class="font-bold">Enemigos:</h4>
+        <ul>
+          <% superheroe.enemigos.forEach(enemigo =>{ %>
+          <li><%= enemigo %></li>
+          <% }); %>
+        </ul>
+      </div>
+      <hr />
+      <h4><b>Creador:</b> <%= superheroe.creador ?? "Desconocido" %></h4>
     </div>
-  </form>
+    <form
+      method="post"
+      class="bg-black/75 rounded-r-md p-3 grid gap-3 size-full"
+      id="editarSuperheroeForm"
+    >
+      <div class="flex-1 grid grid-cols-1 gap-3 [&>*]:w-full sm:grid-cols-2">
+        <!-- Nombre del superhéroe -->
+        <label for="nombreSuperHeroe" class="text-white">Nombre del superhéroe</label>
+        <input
+          class="p-1 rounded-md"
+          type="text"
+          name="nombreSuperHeroe"
+          id="nombreSuperHeroe"
+          minlength="3"
+          maxlength="60"
+        />
+        <!-- Nombre real -->
+        <label for="nombreReal" class="text-white">Nombre real</label>
+        <input
+          class="p-1 rounded-md"
+          type="text"
+          name="nombreReal"
+          id="nombreReal"
+          minlength="3"
+          maxlength="60"
+        />
+        <!-- Edad -->
+        <label for="edad" class="text-white">Edad</label>
+        <input class="p-1 rounded-md" type="number" name="edad" id="edad" min="0" />
+        <!-- Planeta de origen -->
+        <label for="planetaOrigen" class="text-white">Planeta de origen</label>
+        <input
+          class="p-1 rounded-md"
+          type="text"
+          name="planetaOrigen"
+          id="planetaOrigen"
+        />
+        <!-- Debilidad -->
+        <label for="debilidad" class="text-white">Debilidad</label>
+        <input class="p-1 rounded-md" type="text" name="debilidad" id="debilidad" />
+        <!-- Usuario creador -->
+        <label for="creador" class="text-white">Creador</label>
+        <input class="p-1 rounded-md" type="text" name="creador" id="creador" />
+      </div>
+      <!-- Lista de poderes -->
+      <fieldset class="grid gap-3 border border-solid border-gray-300 p-3 rounded-md">
+        <legend class="text-white p-3">Poderes</legend>
+        <div id="poderesContainer" class="grid gap-2">
+          <input
+            type="text"
+            class="p-1 rounded-md"
+            name="poderes[]"
+            placeholder="Ingrese un poder"
+          />
+        </div>
+        <button type="button" class="text-white" onclick="agregarPoder()">
+          Añadir otro poder
+        </button>
+      </fieldset>
+      <!-- Lista de enemigos -->
+      <fieldset class="grid gap-3 border border-solid border-gray-300 p-3 rounded-md">
+        <legend class="text-white p-3">Enemigos</legend>
+        <div id="enemigosContainer" class="grid gap-2"></div>
+        <button type="button" class="text-white" onclick="agregarEnemigo()">
+          Añadir enemigo
+        </button>
+      </fieldset>
+      <!-- Lista de aliados -->
+      <fieldset class="grid gap-3 border border-solid border-gray-300 p-3 rounded-md">
+        <legend class="text-white p-3">Aliados</legend>
+        <div id="aliadosContainer" class="grid gap-2"></div>
+        <button type="button" class="text-white" onclick="agregarAliado()">
+          Añadir aliado
+        </button>
+      </fieldset>
+      <small class="text-white">Nota: Todos los campos son opcionales</small>
+      <!-- Botones -->
+      <div class="flex gap-3 justify-end">
+        <button type="submit" class="bg-white p-2 rounded-md font-thin w-28">
+          Aceptar
+        </button>
+        <button type="reset" class="bg-white p-2 rounded-md font-thin w-28">
+          Limpiar
+        </button>
+      </div>
+    </form>
+  </div>
   <script src="/scripts/editSuperhero.js"></script>
 </section>

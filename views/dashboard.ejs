@@ -1,7 +1,10 @@
-<section class="container m-auto mb-4">
-  <h2 class="text-center text-1xl p-3 md:text-3xl font-light">LISTA DE SUPERHEROES</h2>
+<h1 class="text-center font-light p-3">DASHBOARD</h1>
+<hr />
+<section class="container m-auto">
+  <h2 class="text-center p-3 font-light">SUPERHÉROES REGISTRADOS</h2>
   <ul class="columns-xs gap-3">
     <% superheroes.forEach((superheroe) =>{ %>
+    <!-- Tarjeta con información del superhéroe -->
     <li class="break-inside-avoid-column mb-3">
       <div class="flex flex-col gap-1 border border-black/90 rounded-md p-3">
         <h4><b>Nombre de superhéroe:</b> <%= superheroe.nombreSuperHeroe %></h4>
@@ -38,17 +41,15 @@
         <hr class="border-t border-black/50" />
         <h4><b>Creador:</b> <%= superheroe.creador ?? "Desconocido" %></h4>
         <h4><b>ID:</b> <%= superheroe._id %></h4>
-        <div class="flex gap-3 text-white justify-end">
+        <div class="flex justify-end gap-3 p-2 text-white">
           <a
             href="/api/heroes/<%= superheroe._id %>/editar"
-            class="bg-yellow-500 p-2 rounded-md"
+            class="bg-primary p-2 rounded-md"
             >Editar</a
           >
           <button
-            superheroeId="<%=superheroe._id %>"
-            nombreSuperHeroe="<%=superheroe.nombreSuperHeroe %>"
-            onclick="eliminarSuperheroe(this)"
             class="bg-red-500 p-2 rounded-md"
+            onclick="mostrarModal('<%= superheroe._id %>')"
           >
             Eliminar
           </button>
@@ -58,4 +59,19 @@
     <% }); %>
   </ul>
 </section>
+
+<!-- Modal con mensaje para eliminar superhéroe -->
+<div class="fixed top-0 left-0 right-0 bottom-0 bg-black/80 hidden" id="modalContainer">
+  <form action="post" id="eliminarSuperheroeForm" class="bg-white m-auto p-3 grid gap-3">
+    <p id="modalMessage">¿Desea eliminar el superhéroe?</p>
+    <!-- Botones -->
+    <div class="flex gap-3">
+      <button type="submit" class="bg-red-400 text-white p-2 rounded-md">Eliminar</button>
+      <button type="reset" class="bg-gray-300 text-white p-2 rounded-md">Cancelar</button>
+    </div>
+    <!-- Datos del superhéroe a eliminar -->
+    <input type="hidden" name="superheroeId" id="superheroeIdInput" />
+  </form>
+</div>
+<br />
 <script src="/scripts/dashboard.js"></script>
